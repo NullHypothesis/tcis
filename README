@@ -1,0 +1,17 @@
+tcis is short for ``Tor Connection Initiation Simulator''. The tool partially simulates the
+initiation of a Tor connection to a given IP address by sending a TLS client hello containing the
+Tor cipher list (see [1]). After that, the program terminates. The TLS client hello is hardcoded
+into the program and in order to make the client hello appear like a real Tor connection, dynamic
+fields such as the timestamp, the random value and the host name are initialized when the program is
+started.
+
+The tool is useful for analyzing the Great Firewall of China which is known to search for the Tor
+cipher list and launches active scanning after a cipher list was detected in a connection.
+
+To run the program, you need to specify an IP address and a port where a TCP daemon is listening. It
+does not have to be a Tor process. A simple ``nc -l -p 1234'' is enough.
+
+$ make
+$ ./tcis <IP> <port>
+
+[1] https://trac.torproject.org/projects/tor/ticket/4744
